@@ -20,7 +20,7 @@ def printValues(filename,x,y,time,ts):
     print y
     print time
     print ts
-        
+
 def main():
     #Ingresar nombre del archivo json a procesar
     #filename="19"
