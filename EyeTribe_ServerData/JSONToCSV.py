@@ -1,7 +1,8 @@
-#!/usr/bin/env python
-# -*- coding: cp1252 -*-
+#!/usr/bin/env python2
+
 import csv
 import json
+
 
 def writeToCsvHeader(filename):
     filenameCsv=filename+".csv"
@@ -24,20 +25,19 @@ def printValues(filename,x,y,time,timestamp):
 
 #TODO(gmartinezramirez): Refactor and do shorter method.
 def main():
-    #Ingresar nombre del archivo json a procesar
-    #filename="19"
-    filename = raw_input("Ingrese nombre del archivo JSON a procesar, sin la extensión .json: ")
+    JSONfile = raw_input("Name of the JSON file to process: ")
 
-    with open(filename+".json") as file:
-        writeToCsvHeader(filename)
-        for line in file:
-            json_data = json.loads(line)
-            if json_data["category"] == "tracker":
-                ts = json_data["values"]["frame"]["timestamp"]
-                time = json_data["values"]["frame"]["time"]
-                x = json_data["values"]["frame"]["avg"]["x"]
-                y = json_data["values"]["frame"]["avg"]["y"]
-                #printValues(filename,x,y,time,ts) #Descomentar solo si se quiere ver el output de procesamiento
+    with open(JSONfile) as JSON_file:
+        writeToCsvHeader(JSON_file)
+        for line in JSON_file:
+            JSON_data = json.loads(line)
+            if JSON_data["category"] == "tracker":
+                ts = JSON_data["values"]["frame"]["timestamp"]
+                time = JSON_data["values"]["frame"]["time"]
+                x = JSON_data["values"]["frame"]["avg"]["x"]
+                y = JSON_data["values"]["frame"]["avg"]["y"]                
+                #DEBUG: Print the values readed in the JSON_file
+                #printValues(filename,x,y,time,ts)
                 writeToCsvFile(filename, ts, time, x, y)
 
 if __name__ == '__main__':
